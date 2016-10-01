@@ -1,0 +1,44 @@
+package mx.iteso.decorator.condiments;
+
+import mx.iteso.decorator.Taco;
+import mx.iteso.decorator.Utils;
+import mx.iteso.decorator.condiments.meat.Fish;
+import mx.iteso.decorator.condiments.meat.Shrimp;
+import mx.iteso.decorator.tacos.TacoNormal;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Created by Arturo Hernandez on 29/9/2016.
+ */
+public class ShrimpTest {
+
+    private Taco taco;
+    @Before
+    public void setUp(){
+        taco = new TacoNormal(Utils.Size.Regular);
+    }
+
+    @Test
+    public void testCostRegular(){
+        Taco shrimp = new Shrimp(taco);
+        double cost = shrimp.cost();
+        assertEquals(9.0, cost,0);
+    }
+
+    @Test
+    public void testDescription(){
+        Taco shrimp = new Shrimp(taco);
+        String desc = shrimp.getDescription();
+        assertEquals("Taco Normal Regular de camaron", desc);
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testMiniSize(){
+        Taco tacoMini=new TacoNormal(Utils.Size.Mini );
+        Taco taco=new Shrimp(tacoMini);
+    }
+
+}
